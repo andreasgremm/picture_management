@@ -18,7 +18,7 @@ find . -name zb4meta.info | sed -e's/ /\\ /g' ) >Alle_zb4meta_info.txt
 ```
 * Abarbeiten der Steuerliste durch das Script.
 
-Wenn es sicher keine Verzeichnis-Namens-Probleme gibt, dann dieses auch in einem, dem oben erwähnten zweiten Schritt erfolgen, und nur das Shell-Skript ausgeführt werden. Dafür muss die letzte aktive Zeile des Scriptes ausgetauscht werden.
+Wenn es sicher keine Verzeichnis-Namens-Probleme gibt, dann lässt sich dieses auch in einem, dem oben erwähnten zweiten Schritt erfolgen, und nur das Shell-Skript ausgeführt werden. Dafür muss die letzte aktive Zeile des Scriptes ausgetauscht werden.
 
 ```shell
 done < Alle_zb4meta_info.txt
