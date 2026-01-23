@@ -1,6 +1,7 @@
 import click
 import datetime as dt
 import exiftool
+import glob
 import json
 import subprocess
 
