@@ -16,15 +16,19 @@ for photo in api.photos.albums[source_album]:
     with open(complete_file_name, "wb") as opened_file:
         transfered_bytes = opened_file.write(photo.download("original"))
     with open(f"{Path(complete_file_name).with_suffix('.json')}", "w") as asset_info:
+        transfered_bytes = asset_info.write("[")
         transfered_bytes = asset_info.write(
             json.dumps(photo.__dict__["_master_record"], indent=2)
         )
+        transfered_bytes = asset_info.write(",")
         transfered_bytes = asset_info.write(
             json.dumps(photo.__dict__["_asset_record"], indent=2)
         )
+        transfered_bytes = asset_info.write(",")
         transfered_bytes = asset_info.write(
             json.dumps(photo.__dict__["_versions"], indent=2)
         )
+        transfered_bytes = asset_info.write("]")
     rating = 0
     with exiftool.ExifToolHelper() as et:
         if photo.__dict__["_asset_record"]["fields"]["isFavorite"]["value"] != 0:
