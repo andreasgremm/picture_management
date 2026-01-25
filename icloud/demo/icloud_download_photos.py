@@ -35,6 +35,13 @@ for photo in api.photos.albums[source_album]:
             rating = 5
             # result = et.execute(*["-Rating=5", complete_file_name])
         metadata = et.get_metadata([complete_file_name])
+        photo_description = ""
+        if 'captionEnc' in photo._asset_record['fields']:
+            photo_caption = base64.b64decode(photo._asset_record['fields']['captionEnc']['value']).decode('utf-8')
+            if 'XMP:Description' in metadata[0]:
+                photo_description = f"{metadata[0]['XMP:Description']}; {photo_caption}"
+            else:
+                photo_description = photo_caption
         # if metadata[0]["File:FileType"] in ["MP4", "MOV"]:
         if photo.item_type == 'movie':
             date_name = "CreationDate"
@@ -73,7 +80,8 @@ for photo in api.photos.albums[source_album]:
                 "-d",
                 f"{final_path}/{destination_filename}",
                 "-m",
-                f"-Rating={rating}",              
+                f"-Rating={rating}",
+                f"-Description={photo_description}",
                 complete_file_name,
             ],
             capture_output=True,

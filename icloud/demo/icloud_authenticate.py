@@ -1,3 +1,4 @@
+import base64
 import click
 import datetime as dt
 import exiftool
