@@ -35,3 +35,4 @@ for i, photo in enumerate(photo_list):
     photo_deleted = photo.delete()
     print(f"   Media deleted: {photo_deleted}")
     time.sleep(0.5)
+
