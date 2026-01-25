@@ -4,6 +4,7 @@ import exiftool
 import glob
 import json
 import subprocess
+import time
 
 from tzlocal import get_localzone
 
