@@ -12,6 +12,18 @@ def download_photos(
     source_album: str,
     destination_path: str = f"{Path.home()}/Bilder/iCloud_Mediathek",
 ) -> int:
+    """
+    download_photos function.
+
+    Args:
+        api (PyiCloudService): API zu den iCloud Diensten.
+        source_album (str): Name des Quell Albums.
+        destination_path (str): Pfad für die Photos, Default: ~/Bilder/iCloud_Mediathek.
+
+    Returns:
+        int: Anzahl der Photos.
+    """
+
     # source_album = 'Test'
     # photo = next(iter(api.photos.albums[source_album]), None)
     # destination_path = f"{Path.home()}/Bilder/iCloud_Mediathek"

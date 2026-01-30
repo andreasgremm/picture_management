@@ -3,6 +3,16 @@ from pyicloud import PyiCloudService
 
 
 def select_album(api: PyiCloudService) -> str:
+    """
+    select_album function.
+
+    Args:
+        api (PyiCloudService): API zu den iCloud Diensten.
+
+    Returns:
+        str: Album Name.
+    """
+
     for i, album in enumerate(api.photos.albums):
         print("  %s: %s" % (i, album.name))
     source_album_nr = click.prompt("Which album would you like to use?", default=0)

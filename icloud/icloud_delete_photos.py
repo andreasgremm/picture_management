@@ -14,6 +14,19 @@ def delete_photos(
     destination_path: str = f"{Path.home()}/Bilder/iCloud_Mediathek",
     latest_date: tuple = (2025, 12, 1),
 ) -> tuple:
+    """
+    delete_photos function.
+
+    Args:
+        api (PyiCloudService): API zu den iCloud Diensten.
+        source_album (str): Name des Quell Albums.
+        destination_path (str): Pfad für die Photos, Default: ~/Bilder/iCloud_Mediathek.
+        latest_date (tuple): Letztes Datum bis zu dem Photos gelöscht werden, Default (2025, 12, 1).
+
+    Returns:
+        tuple: (Anzahl der vorhandenen Photos, Anzal der gelöschten Photos).
+    """
+
     # source_album = 'Test'
     # photo = next(iter(api.photos.albums[source_album]), None)
     # destination_path = f"{Path.home()}/Bilder/iCloud_Mediathek"
