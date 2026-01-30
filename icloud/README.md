@@ -20,14 +20,13 @@
 
 6. Bereitstellen der pyicloud Routinen.
 `cp -r "$pyicloudverzeichnis"/pyicloud .`
-7. Bereitstellen der Python Snippets.  
-`cp -r "$repoverzeichnis"/demo .`
+7. Bereitstellen der Python Module.  
+`cp -r "$repoverzeichnis" .`
 
 Das Ergebnis ist folgende Verzeichnisstruktur:
 
 ```text
 .
-├── demo
 ├── pyenv
 └── pyicloud
 ```
@@ -52,8 +51,45 @@ Die Nutzung des Tools wird aktuell durch den Aufruf der Python-Snippets realisie
     In diesem Schritt werden die Zugangsdaten zum iCloud-Account abgefragt und die Zwei-Faktor Authentifizierung durchgeführt.  
     Danach werden die zugänglichen Alben aufgelistet und abgefragt welches Album verwendet werden soll.  
     Dieser Schritt wird in einer späteren Version möglicherweise durch den Aufruf einer Python-Methode ersetzt.
-3. Herunterladen und Bearbeiten der Bilder.
-    * Öffnen der Datei **demo/icloud_download_photos.py** in einem Editor.
-    * Den Inhalt in die Zwischenablage kopieren
-    * Die Zwischenablage beim Python-Prompt einfügen und mit "\<Enter\>" starten.  
-    Dieser Schritt wird in einer späteren Version möglicherweise durch den Aufruf einer Python-Methode ersetzt.
+
+3. Herunterladen und Bearbeiten der Bilder aus der iCloud.
+    * Aufruf des Moduls **download_photos**
+  
+    ```python
+    # Schnittstelle von download_photos
+    download_photos.__annotations__
+    {'api': <class 'pyicloud.base.PyiCloudService'>, 'source_album': <class 'str'>, 'destination_path': <class 'str'>, 'return': <class 'int'>}
+
+    # Aufrufbeispiel
+    anzahl_photos_geladen = download_photos(api, source_album)
+    ```
+
+4. Kopieren der Bilder an ihr Zielort  
+   Dieser Schritt ist sehr abhängig davon, wo der Zielort ist. Daher gebe ich hier keine Vorgehensweise vor.
+
+5. Überprüfen der Daten
+   Liegen die Daten an der richtigen Stelle, gibt es ein Backup der heruntergeladenen Daten.
+
+6. Löschen der Bilder in der iCloud
+   * Aufruf des Moduls **delete_photos**
+
+    ```python
+    # Schnittstelle von delete_photos:
+    delete_photos.__annotations__
+    {'api': <class 'pyicloud.base.PyiCloudService'>, 'source_album': <class 'str'>, 'destination_path': <class 'str'>, 'latest_date': <class 'tuple'>, 'return': <class 'tuple'>}
+    
+    # Aufrufbeispiel
+    anzahl_photos, geloeschte_photos = delete_photos(api, source_album, latest_date=(2025,11,1)
+    ```
+
+7. Ändern des Albums
+   * Aufruf des Moduls **select_album**
+  
+    ```python
+    # Schnittstelle von select_album:
+    select_album.__annotations__
+    {'api': <class 'pyicloud.base.PyiCloudService'>, 'return': <class 'str'>}
+
+    # Aufrufbeispiel
+    source_album=select_album(api)
+    ```

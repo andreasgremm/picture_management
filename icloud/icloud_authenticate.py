@@ -1,21 +1,12 @@
-import base64
 import click
-import datetime as dt
-import exiftool
-import glob
-import json
-import subprocess
-import time
-
-from tzlocal import get_localzone
-
-from pathlib import Path
 from pyicloud import PyiCloudService
 
-local_tz = get_localzone()
+from icloud_delete_photos import delete_photos
+from icloud_download_photos import download_photos
+from icloud_select_album import select_album
 
-user = click.prompt('Please enter iCloud Username')
-password = click.prompt('Please enter iCloud Password', hide_input=True)
+user = click.prompt("Please enter iCloud Username")
+password = click.prompt("Please enter iCloud Password", hide_input=True)
 
 api = PyiCloudService(user, password)
 
@@ -48,9 +39,7 @@ if api.requires_2fa:
 
     else:
         print("Two-factor authentication required.")
-        code = input(
-            "Enter the code you received of one of your approved devices: "
-        )
+        code = input("Enter the code you received of one of your approved devices: ")
         result = api.validate_2fa_code(code)
         print("Code validation result: %s" % result)
 
@@ -74,27 +63,19 @@ elif api.requires_2sa:
     devices = api.trusted_devices
     for i, device in enumerate(devices):
         print(
-            "  %s: %s" % (i, device.get('deviceName',
-            "SMS to %s" % device.get('phoneNumber')))
+            "  %s: %s"
+            % (i, device.get("deviceName", "SMS to %s" % device.get("phoneNumber")))
         )
 
-    device = click.prompt('Which device would you like to use?', default=0)
+    device = click.prompt("Which device would you like to use?", default=0)
     device = devices[device]
     if not api.send_verification_code(device):
         print("Failed to send verification code")
         sys.exit(1)
 
-    code = click.prompt('Please enter validation code')
+    code = click.prompt("Please enter validation code")
     if not api.validate_verification_code(device, code):
         print("Failed to verify verification code")
         sys.exit(1)
-        
-for i, album in enumerate(api.photos.albums):
-    print("  %s: %s" % (i, album.name))
-source_album_nr = click.prompt('Which album would you like to use?', default=0)
-source_album = api.photos.albums[source_album_nr].name
 
-# print(source_album)
-# for photo in api.photos.albums['Screenshots']:
-#     print(photo, photo.filename, photo.asset_date, photo.created)
-    
+source_album = select_album(api)
