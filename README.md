@@ -16,7 +16,7 @@ Diese drei Problemstellungen habe ich mit einem Set an einfachen Tools gelöst.
 
 Für das Sortieren von Mediadateien in datumsspezifische Unterverzeichnisse gibt es zwei Ansätze.
 
-1. Die Mediadateien haben keine relevanten mediatypischen EXIF-Daten, **aber die Betriebssystemdaten sind aussagekräftig**.  
+1. Die Mediadateien haben keine relevanten mediatypischen EXIF-Daten, **aber die Betriebssystemdaten zu "Create-" oder "ModifyDate" sind aussagekräftig**.  
 In dieser Situation kann mit dem Script [sort_photos.inc](./icloud/demo/sort_photos.inc) die Exif-Daten aus den Betriebssytemdaten übernommen werden und die Mediadatei in ein datumsspezifisches Verzeichnis verschoben werden.
 Existiert die Mediadatei bereits im Zielverzeichnis, wird sie dort nicht überschrieben.  
 Das Script kann an andere Datei-Extensions angepasst werden und auch die Namensgebung der Verzeichnisstruktur kann den Wünschen angepasst werden.  
@@ -26,6 +26,9 @@ Der Aufruf erfolgt unter Linux aus dem Verzeichnis heraus, in dem die Mediadaten
 In diesem Fall kann entweder der zweite EXIFTOOL-Aufruf aus dem Script im vorherigen Kapitel, mit den relevanten EXIF-Daten getätigt werden, oder über das Python-Snippet [analyse_exifdate_from_mediafiles.py](./icloud/demo/analyse_exifdata_from_mediafiles.py) genutzt werden.  
 Die Erweiterung dieses Snippets ermöglicht den Aufbau einer Informationsbasis. Hier ist nur Beispielhaft die Ausgabe von Metadaten-Informationen eingebaut.  
 Meine Beobachtung war, dass die Exif-Daten mal ein "CreateDate", aber auch mal nur ein "ModifyDate" beinhalteten. Das Python-Snippet müsste entsprechend erweitert werden, ich habe dann nur temporär die Texte im Snippet entsprechend angepasst.
+
+3. Die Mediadaten **haben** keine relevante mediatypischen EXIF-Daten, "Create-" oder "ModifyDate" sind nicht aussagekräftig, **aber die Betriebssystemdaten zu "BirthDate" sind aussagekräftig**.
+In diesem Fall kann über das Python-Snippet [analyse_birthdate_from_mediafiles.py](./icloud/demo/analyse_birthdate_from_mediafiles.py) genutzt werden.  
 
 ## Übernehmen der Rating-Informationen von ZoomBrowser
 
