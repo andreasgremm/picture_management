@@ -49,8 +49,8 @@ def delete_photos(
         ):
             photo_name_base = photo.filename.rsplit(".", 1)[0]
             photo_info_file = glob.glob(f"{destination_path}/*{photo_name_base}.json")
-            if len(photo_info_file) > 0:
-                with open(photo_info_file[0], "r") as infofile:
+            for info_file in photo_info_file:
+                with open(info_file, "r") as infofile:
                     info_data = json.load(infofile)
                     if info_data[0]["recordName"] == photo.id:
                         print(f"      Mark Media: {photo.id}, {photo.filename}")
